@@ -1,0 +1,8 @@
+{
+  "run_list": [
+    "recipe[t]"
+  ],
+  "chef_handler": {
+    "handler_path": "handler"
+  }
+}

@@ -12,4 +12,8 @@ task :release do
   system "gem push chef-handler-splunk-#{Chef::Handler::Splunk::VERSION}.gem"
 end
 
+task :test do
+  system "chef-solo -c test/chef.rb -j test/chef.json -l info -L chef-solo.log"
+end
+
 task :default => :build
