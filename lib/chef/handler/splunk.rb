@@ -18,7 +18,7 @@ require 'rest-client'
 class Chef
   class Handler
     class Splunk < Chef::Handler
-      VERSION = '1.0.0'
+      VERSION = '1.1.0'
       API_ENDPOINT = 'services/receivers/simple'
 
       # * *Args*:
@@ -52,8 +52,19 @@ class Chef
           :start_time => run_status.start_time,
           :end_time => run_status.end_time,
           :elapsed_time => run_status.elapsed_time,
-          :exception => run_status.formatted_exception,
-          :updated_resources => run_status.updated_resources}.to_json
+          :exception => run_status.formatted_exception}.to_json
+
+        splunk_post(event, metadata)
+      end
+
+      # Reports metrics to Splunk.
+      def report_resources
+        metadata = {
+          :sourcetype => 'json_chef-resources',
+          :source => 'chef-handler',
+          :host => node.hostname,
+          :index => @index}
+        event = run_status.updated_resources.to_json
 
         splunk_post(event, metadata)
       end
@@ -73,6 +84,7 @@ class Chef
       # Wrapper for metrics and backtrace.
       def report
         report_metrics
+        report_resources
         if run_status.failed?
           report_backtrace
         end
