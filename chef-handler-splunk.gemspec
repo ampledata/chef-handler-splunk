@@ -1,6 +1,18 @@
 # -*- encoding: utf-8 -*-
+# Gemspec for chef-handler-splunk.
+#
+# Source:: https://github.com/ampledata/chef-handler-splunk
+# Author:: Greg Albrecht (<mailto:gba@splunk.com>)
+# Copyright:: Copyright 2012 Splunk, Inc.
+# License:: Apache License 2.0
+#
+
+
 $:.push File.expand_path('../lib/chef/handler', __FILE__)
+
+
 require 'splunk'
+
 
 Gem::Specification.new do |s|
   s.name = 'chef-handler-splunk'
@@ -12,7 +24,7 @@ Gem::Specification.new do |s|
     'metrics from Splunk.'].join(' ')
   s.author = 'Greg Albrecht'
   s.email = 'gba@splunk.com'
-  s.homepage = 'http://ampledata.org/splunk_chef_handler.html'
+  s.homepage = 'https://github.com/ampledata/chef-handler-splunk'
   s.require_path = 'lib'
   s.files = %w(LICENSE README.md) + Dir.glob('lib/**/*')
   s.add_runtime_dependency 'json'

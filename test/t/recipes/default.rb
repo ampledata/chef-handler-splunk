@@ -21,7 +21,7 @@ gem_package 'chef-handler-splunk' do
 end.run_action(:upgrade)
 
 
-chef_handler 'Chef::Handler::Splunk' do
+chef_handler 'Chef::Handler::SplunkHandler' do
   action :enable
   arguments ['admin', 'xxx', 'splunk.example.com']
   source File.join(Gem.all_load_paths.grep(/chef-handler-splunk/).first,

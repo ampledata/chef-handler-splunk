@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 # Chef Exception & Reporting Handler for Splunk.
 #
-# https://github.com/ampledata/chef-handler-splunk
-#
+# Source:: https://github.com/ampledata/chef-handler-splunk
 # Author:: Greg Albrecht <mailto:gba@splunk.com>
 # Copyright:: Copyright 2012 Splunk, Inc.
 # License:: Apache License 2.0.
@@ -17,8 +16,8 @@ require 'rest-client'
 
 class Chef
   class Handler
-    class Splunk < Chef::Handler
-      VERSION = '1.1.0'
+    class SplunkHandler < Chef::Handler
+      VERSION = '2.0.0'
       API_ENDPOINT = 'services/receivers/simple'
 
       # * *Args*:
@@ -33,7 +32,8 @@ class Chef
                      scheme='https')
         @username = username
         @password = password
-        @splunk_url = "#{scheme}://#{host}:#{port}/"
+        @splunk_url = URI::HTTP.new(
+          scheme, nil, host, port, nil, nil, nil, nil, nil).to_s
         @index = index
       end
 
@@ -43,7 +43,8 @@ class Chef
           :sourcetype => 'json',
           :source => 'chef-handler',
           :host => node.hostname,
-          :index => @index}
+          :index => @index
+        }
 
         # We're creating a new Hash b/c 'node' and 'all_resources' in run_status
         # are just TOO large.
@@ -52,7 +53,8 @@ class Chef
           :start_time => run_status.start_time,
           :end_time => run_status.end_time,
           :elapsed_time => run_status.elapsed_time,
-          :exception => run_status.formatted_exception}.to_json
+          :exception => run_status.formatted_exception
+        }.to_json
 
         splunk_post(event, metadata)
       end
@@ -63,7 +65,8 @@ class Chef
           :sourcetype => 'json_chef-resources',
           :source => 'chef-handler',
           :host => node.hostname,
-          :index => @index}
+          :index => @index
+        }
         event = run_status.updated_resources.to_json
 
         splunk_post(event, metadata)
@@ -75,7 +78,8 @@ class Chef
           :sourcetype => 'chef-handler-backtrace',
           :source => 'chef-handler',
           :host => node.hostname,
-          :index => @index}
+          :index => @index
+        }
         event = Array(run_status.backtrace).join("\n")
 
         splunk_post(event, metadata)

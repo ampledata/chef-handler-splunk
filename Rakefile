@@ -1,4 +1,13 @@
 # -*- encoding: utf-8 -*-
+# Rakefile for chef-handler-splunk.
+#
+# Source:: https://github.com/ampledata/chef-handler-splunk
+# Author:: Greg Albrecht (<mailto:gba@splunk.com>)
+# Copyright:: Copyright 2012 Splunk, Inc.
+# License:: Apache License 2.0
+#
+
+
 $:.push File.expand_path('../lib/chef/handler', __FILE__)
 
 require 'splunk'
