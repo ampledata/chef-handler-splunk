@@ -16,7 +16,7 @@ require 'splunk'
 
 Gem::Specification.new do |s|
   s.name = 'chef-handler-splunk'
-  s.version = Chef::Handler::Splunk::VERSION
+  s.version = Chef::Handler::SplunkHandler::VERSION
   s.platform = Gem::Platform::RUBY
   s.summary = 'Chef Exception & Reporting Handler for Splunk.'
   s.description = [
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.email = 'gba@splunk.com'
   s.homepage = 'https://github.com/ampledata/chef-handler-splunk'
   s.require_path = 'lib'
-  s.files = %w(LICENSE README.md) + Dir.glob('lib/**/*')
+  s.files = %w(LICENSE.txt README.md CHANGELOG.md) + Dir.glob('lib/**/*')
   s.add_runtime_dependency 'json'
   s.add_runtime_dependency 'rest-client'
 end
