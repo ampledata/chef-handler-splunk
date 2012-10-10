@@ -17,7 +17,7 @@ require 'rest-client'
 class Chef
   class Handler
     class SplunkHandler < Chef::Handler
-      VERSION = '2.0.0'
+      VERSION = '2.1.0'
       API_ENDPOINT = 'services/receivers/simple'
 
       # * *Args*:
