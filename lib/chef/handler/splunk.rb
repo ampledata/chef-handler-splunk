@@ -17,7 +17,7 @@ require 'rest-client'
 class Chef
   class Handler
     class SplunkHandler < Chef::Handler
-      VERSION = '2.0.0'
+      VERSION = '2.1.0'
       API_ENDPOINT = 'services/receivers/simple'
 
       # * *Args*:
@@ -40,10 +40,11 @@ class Chef
       # Reports metrics to Splunk.
       def report_metrics
         metadata = {
-          :sourcetype => 'json',
-          :source => 'chef-handler',
-          :host => node.hostname,
-          :index => @index
+          'sourcetype' => 'json',
+          'source' => 'chef-handler',
+          'host' => node.hostname,
+          'index' => @index,
+          'check-index' => false
         }
 
         # We're creating a new Hash b/c 'node' and 'all_resources' in run_status
@@ -62,10 +63,11 @@ class Chef
       # Reports metrics to Splunk.
       def report_resources
         metadata = {
-          :sourcetype => 'json_chef-resources',
-          :source => 'chef-handler',
-          :host => node.hostname,
-          :index => @index
+          'sourcetype' => 'json_chef-resources',
+          'source' => 'chef-handler',
+          'host' => node.hostname,
+          'index' => @index,
+          'check-index' => false
         }
         event = run_status.updated_resources.to_json
 
@@ -75,10 +77,11 @@ class Chef
       # Report Exception backtraces to Splunk.
       def report_backtrace
         metadata = {
-          :sourcetype => 'chef-handler-backtrace',
-          :source => 'chef-handler',
-          :host => node.hostname,
-          :index => @index
+          'sourcetype' => 'chef-handler-backtrace',
+          'source' => 'chef-handler',
+          'host' => node.hostname,
+          'index' => @index,
+          'check-index' => false
         }
         event = Array(run_status.backtrace).join("\n")
 
