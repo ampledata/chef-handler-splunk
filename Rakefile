@@ -18,7 +18,7 @@ task :build do
 end
 
 task :release do
-  system "gem push chef-handler-splunk-#{Chef::Handler::Splunk::VERSION}.gem"
+  system "gem push chef-handler-splunk-#{Chef::Handler::SplunkHandler::VERSION}.gem"
 end
 
 task :test do
