@@ -8,7 +8,7 @@ Usage
 
 Via Cookbook (preferred)
 ------------------------
-See the [splunk_handler](https://github.com/ampledata/splunk_handler)
+See the [splunk_handler](https://github.com/ampledata/cookbook-splunk_handler)
 Cookbook.
 
 Via Recipe (old, non-preferred)
